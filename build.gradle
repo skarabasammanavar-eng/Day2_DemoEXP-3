@@ -7,18 +7,30 @@ repositories {
 }
 
 dependencies {
+
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+
+    // ADD THESE LINES
+    testImplementation 'org.seleniumhq.selenium:selenium-java:4.19.1'
+    testImplementation 'org.testng:testng:7.10.2'
 }
 
 application {
     mainClass = 'org.example.Main'
 }
+
+// ADD THIS
+test {
+    useTestNG()
+}
+
 tasks.register('prepareDocs', Copy) {
     description = 'Copies HTML, CSS, and images to the docs folder.'
     group = 'documentation'
 
     from('src/main/resources') {
-        include '*/.html', '*/.css', '*/.js', '*/.png', '*/.jpg', '*/.jpeg', '*/.gif', '*/.svg'
+        include '**/*.html', '**/*.css', '**/*.js', '**/*.png',
+                '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.svg'
     }
     into("$rootDir/docs")
 }
